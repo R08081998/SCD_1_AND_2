@@ -24,34 +24,3 @@ SELECT id,full_name,datalength(full_name) as data_length, LEN(full_name) len_of_
 FROM full_emp;
 
 SELECT * FROM full_emp
-
-
-
---------------------------------------------------------------------------------------------------------------------
-public IActionResult DisplayImage(int id)
-{
-    using (SqlConnection conn = new SqlConnection("YourConnectionString"))
-    {
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("SELECT IMG FROM full_emp WHERE id = @id", conn);
-        cmd.Parameters.AddWithValue("@id", id);
-        byte[] imageData = (byte[])cmd.ExecuteScalar();
-        
-        if (imageData != null)
-        {
-            return File(imageData, "image/jpeg"); // Or "image/png" based on your image type
-        }
-        else
-        {
-            return NotFound();
-        }
-    }
-}
-
---------------------------------------------------------------------------------------------------------------------
-
-EXEC sp_configure 'show advanced options', 1;
-RECONFIGURE;
-EXEC sp_configure 'Ad Hoc Distributed Queries', 1;
-RECONFIGURE;
-
